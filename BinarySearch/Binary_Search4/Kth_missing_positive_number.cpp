@@ -1,47 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int findDays ( vector<int> &arr, int capacity){
-    int days = 1, load = 0;
-    for (int i=0;i<arr.size();i++)
+int findMissingElement(vector<int> &arr, int missingIndex){
+ int n = arr.size();
+ int low = 0, high = n-1;
+
+    while(low <= high )
     {
-        if(arr[i]+load > capacity)
-        {
-            days++;
-            load = arr[i];
-        }
-        else
-            load += arr[i];
-    }
-    return days;
-}
-int findLeastWeightCapacity(vector<int> &arr, int days){
- int low = *max_element(arr.begin(), arr.end());
- int high = accumulate(arr.begin(), arr.end(), 0);
-
-    while(low <= high){
         int mid = (low+high)/2;
-
-        int numberOfDays = findDays(arr, mid);
-        if(numberOfDays<= days)
-            high = mid - 1;
+        int missing = arr[mid]-(mid+1);
+        if(missing < missingIndex)
+            low = mid+1;
         else
-            low = mid + 1;
+            high = mid - 1;
     }
-    return low;
+    return high+1+missingIndex;
 }
 int main() {
     /*int n=, target;
     cin>>n;
     cin>>target;*/
-    vector<int> arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    int days = 5;
+    vector<int> arr = {4, 7, 8};
+    int missingIndex = 4;
     //for(int i=0;i<n;i++)
       //  cin>>a[i];
-    int leastWeight = findLeastWeightCapacity(arr, days);
-    cout<<"The Least weight to ship packages in 5 days is: "<<leastWeight;
+    int missingElement = findMissingElement(arr, missingIndex);
+    cout<<"The missing Element of index 3 is: "<<missingElement;
     return 0;
 }
 /*
-The Least weight to ship packages in 5 days is: 15
+The missing Element of index 3 is: 5
 */
