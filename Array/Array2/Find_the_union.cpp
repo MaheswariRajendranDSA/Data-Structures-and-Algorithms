@@ -37,3 +37,7 @@ int main(){
         cout<<val<<" ";
     }
 }
+
+/*
+The Union is : 1 2 3 4 5 
+*/
