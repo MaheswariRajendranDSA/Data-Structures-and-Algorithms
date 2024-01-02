@@ -2,28 +2,25 @@
 using namespace std;
 
 int main(){
-    vector<int> arr = {1, 2, 3, 1, 1, 1, 1, 4, 2, 3};
+    vector<int> arr = {3, 1, -2, -5, 2, -4};
     int n = arr.size();
-    int k = 6;
-    int left = 0, right = 0;
-    long long sum =  arr[0];
-    int maxLen = 0;
-
-    while(right < n){
-        while(left<=right && sum > k){
-            sum -= arr[left];
-            left++;
+    vector<int> ans (n, 0);
+    int posIndex = 0, negIndex = 1;
+    for(int i = 0; i < n;i ++){
+        if(arr[i] < 0){
+            ans[negIndex] = arr[i];
+            negIndex+=2;
         }
-        if(sum == k){
-            maxLen = max(maxLen, right-left+1);
-        }
-        right ++;
-        if(right < n){
-            sum += arr[right];
+        else{
+            ans[posIndex] = arr[i];
+            posIndex+=2;
         }
     }
-    cout<<"The longest subarray sum is :"<<maxLen;
+    cout<<"The ordered array is ";
+    for(int i = 0; i < n; i++)
+        cout<<arr[i]<<" ";
+        return 0;
 }
 /*
-The longest subarray sum is :4
+The ordered array is 3 1 -2 -5 2 -4 
 */

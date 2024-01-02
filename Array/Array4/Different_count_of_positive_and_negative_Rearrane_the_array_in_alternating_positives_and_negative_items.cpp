@@ -2,28 +2,41 @@
 using namespace std;
 
 int main(){
-    vector<int> arr = {1, 2, 3, 1, 1, 1, 1, 4, 2, 3};
+    vector<int> arr = {3, 1, -2, -5, 2, 4};
     int n = arr.size();
-    int k = 6;
-    int left = 0, right = 0;
-    long long sum =  arr[0];
-    int maxLen = 0;
-
-    while(right < n){
-        while(left<=right && sum > k){
-            sum -= arr[left];
-            left++;
+    vector<int> pos, neg;
+    for(int i = 0; i < n; i ++){
+        if(arr[i]>0)
+            pos.push_back(arr[i]);
+        else
+            neg.push_back(arr[i]);
+    }
+    if(pos.size() > neg.size()){
+        for(int i = 0; i < neg.size(); i++){
+            arr[i*2] = pos[i];
+            arr[i*2+1] = neg[i];
         }
-        if(sum == k){
-            maxLen = max(maxLen, right-left+1);
-        }
-        right ++;
-        if(right < n){
-            sum += arr[right];
+        int index = neg.size()*2;
+        for(int i = neg.size(); i < pos.size(); i++){
+            arr[index] = pos[i];
+            index++;
         }
     }
-    cout<<"The longest subarray sum is :"<<maxLen;
+    else {
+        for(int i = 0; i < pos.size(); i++){
+            arr[i*2] = pos[i];
+            arr[i*2+1] = neg[i];
+        }
+        int index = pos.size()*2;
+        for(int i = pos.size(); i < neg.size(); i++){
+            arr[index] = pos[i];
+            index++;
+        }
+    }
+    cout<<"The ordered array is ";
+    for(int i = 0; i < n ; i ++)
+        cout<<arr[i]<<" ";
 }
 /*
-The longest subarray sum is :4
+The ordered array is 3 -2 1 -5 2 4 
 */
